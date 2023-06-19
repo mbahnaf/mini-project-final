@@ -1,0 +1,7 @@
+---
+- name: Cleanup Docker on app server
+  hosts: app_servers
+
+  roles:
+    - role: cleanup
+

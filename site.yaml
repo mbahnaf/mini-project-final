@@ -1,0 +1,20 @@
+---
+- name: Deploy LAMP stack application
+  hosts: all
+
+  roles:
+    - role: common
+    - role: docker
+
+- name: Deploy app server
+  hosts: app_servers
+
+  roles:
+    - role: app
+
+- name: Deploy db server
+  hosts: db_servers
+
+  roles:
+    - role: db
+

@@ -1,0 +1,10 @@
+---
+- name: Install common packages
+  package:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - yum-utils
+    - git
+    
+

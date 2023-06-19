@@ -1,0 +1,26 @@
+---
+- name: Run MySQL container
+  docker_container:
+    name: ecommerce_db
+    image: mysql:5.7
+    env:
+      MYSQL_ROOT_PASSWORD: rootp@55
+      MYSQL_USER: ecomuser
+      MYSQL_PASSWORD: ecompassword
+      MYSQL_DATABASE: ecomdb
+    volumes:
+      - "/var/lib/mysql:/var/lib/mysql"
+      - "/opt/Sample_Ecommerce_Project/assets/db-load-script.sql:/docker-entrypoint-initdb.d"
+    ports:
+      - "3306:3306"
+    networks:
+      - name: ecommerce_net
+        ipv4_address: 172.20.0.20
+
+networks:
+  - name: ecommerce_net
+    driver: overlay
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+

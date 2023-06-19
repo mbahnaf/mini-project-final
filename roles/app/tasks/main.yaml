@@ -1,0 +1,28 @@
+---
+- name: Clone the repository
+  git:
+    repo: https://github.com/Debaice06/Sample_Ecommerce_Project.git
+    dest: /opt/Sample_Ecommerce_Project
+
+- name: Build and deploy app container
+  docker_container:
+    name: ecommerce_app
+    image: mbahnaf/mini-project-final
+    build:
+      path: /opt/Sample_Ecommerce_Project
+      dockerfile: /opt/Dockerfile
+    volumes:
+      - "/var/www/html:/var/www/html"
+    ports:
+      - "8080:80"
+    networks:
+      - name: ecommerce_net
+        ipv4_address: 172.20.0.10
+
+networks:
+  - name: ecommerce_net
+    driver: overlay
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+
